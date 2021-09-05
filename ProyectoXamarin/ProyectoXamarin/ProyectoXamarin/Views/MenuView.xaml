@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoXamarin.Views.MenuView"
+             Title="Menu">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <StackLayout BackgroundColor="#2196f3" x:Name="stlUser">
+                <Label Text="{Binding User.Email}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout>
+                <TableView Intent="Menu" HasUnevenRows="True">
+                    <TableRoot>
+                        <TableSection Title="Opciones">
+                            <TextCell Text="Cuentas" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
+                            <TextCell Text="Crear nuevo gasto" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
+                            <TextCell Text="Crear categoría" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
+                            <TextCell Text="Gráfico de gastos" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
+
+                            <TextCell Text="Cerrar sesión"  Command="{Binding EnterMenuOptionCommand}"/>
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

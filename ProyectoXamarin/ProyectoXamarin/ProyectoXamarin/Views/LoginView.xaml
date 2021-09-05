@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoXamarin.Views.LoginView" BackgroundColor="Transparent" NavigationPage.HasBackButton="False">
+    <ContentPage.Content>
+        <AbsoluteLayout Margin="5,0">
+            <FlexLayout IsVisible="True" JustifyContent="SpaceEvenly" Direction="Column" AlignItems="Center" Margin="30,0,30,0">
+                <Image Source="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png" HeightRequest="140" WidthRequest="140" FlexLayout.AlignSelf="Center" BackgroundColor="Transparent"/>
+                <Label TextColor="Black" FontAttributes="Bold" Text="LOGIN" FlexLayout.AlignSelf="Center" BackgroundColor="Transparent"/>
+                <Entry x:Name="txtCorreo" Placeholder="Correo" FontSize="Medium" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" TextColor="Black" Keyboard="Text" Text="{Binding User.Email}"/>
+                <Entry x:Name="txtPassword" IsPassword="True" Placeholder="Contraseña" FontSize="Medium" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" TextColor="Black" Text="{Binding User.Password}"/>
+                
+                <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Orientation="Horizontal" Padding="0" Spacing="16" FlexLayout.AlignSelf="End">
+                    <Label Text="Recordarme" FontSize="Body"></Label>
+                    <Switch IsToggled="{Binding User.RememberUser}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="On">
+                                    <VisualState.Setters>
+                                        <Setter Property="ThumbColor"
+                                            Value="#00b33c"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Off">
+                                    <VisualState.Setters>
+                                        <Setter Property="ThumbColor"
+                                            Value="Red"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Switch>
+                </StackLayout>
+                <Button TextColor="White" BorderColor="Black" BackgroundColor="#00b33c" CornerRadius="5" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" Text="Ingresar" Command="{Binding LoginCommand}"/>
+                <Button TextColor="White" Text="REGISTRARSE" BackgroundColor="Blue" CornerRadius="5" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" Command="{Binding EnterRegisterCommand}" />
+                <Button HorizontalOptions="CenterAndExpand" Text="Sign in with Google" CornerRadius="5" Command="{Binding GoogleCommand}" BackgroundColor="#d34836" TextColor="White" FlexLayout.AlignSelf="Stretch" />
+            </FlexLayout>
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+</ContentPage>

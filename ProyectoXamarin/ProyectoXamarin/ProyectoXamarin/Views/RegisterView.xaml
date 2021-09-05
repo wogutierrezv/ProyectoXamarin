@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoXamarin.Views.RegisterView"
+             Title="dd">
+    <ContentPage.Content>
+        <AbsoluteLayout Margin="5,0,5,5">
+            <FlexLayout IsVisible="True" JustifyContent="SpaceEvenly" Direction="Column" AlignItems="Center" Margin="30,0,30,0">
+                <Entry x:Name="txtName" Placeholder="Nombre" FontSize="Medium" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" TextColor="Black" Text="{Binding User.Name}"/>
+                <Entry x:Name="txtEmail" Placeholder="Correo" Keyboard="Email" FontSize="Medium" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" TextColor="Black" Text="{Binding User.Email}"/>
+                <Entry x:Name="txtPassword" Placeholder="Contraseña" IsPassword="True" FontSize="Medium" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" TextColor="Black" Text="{Binding User.Password}"/>
+                <Button x:Name="signUp" TextColor="White" BorderColor="Black" BackgroundColor="#00b33c"  CornerRadius="5" FlexLayout.AlignSelf="Stretch"  HorizontalOptions="CenterAndExpand" Text="REGISTRARSE" Command="{Binding RegisterCommand}"/>
+                <Button TextColor="Black" BackgroundColor="Transparent" Text="Login" FontSize="13" FlexLayout.AlignSelf="Start" />
+            </FlexLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
