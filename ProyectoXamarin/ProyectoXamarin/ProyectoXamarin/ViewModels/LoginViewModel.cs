@@ -16,10 +16,10 @@ using Xamarin.Forms;
 
 namespace ProyectoXamarin.ViewModels
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : BaseViewModel
     {
-        const string authenticationUrl = "https://localhost:44300/mobileauth/";
-        private JsonSerializer _serializer = new JsonSerializer();
+        private const string authenticationUrl = "https://webauthenticationlogin.azurewebsites.net/mobileauth/";
+        private readonly JsonSerializer _serializer = new JsonSerializer();
 
         #region Properties
 
@@ -34,7 +34,7 @@ namespace ProyectoXamarin.ViewModels
             set
             {
                 _User = value;
-                OnPropertyChanged("User");
+                OnPropertyChanged(nameof(User));
             }
         }
 
@@ -53,7 +53,7 @@ namespace ProyectoXamarin.ViewModels
 
         public string AuthToken { get; set; }
 
-        public LoginViewModel() 
+        public LoginViewModel()
         {
             LoginCommand = new Command(LoginAsync);
             GoogleCommand = new Command(async () => await OnAuthenticate("Google"));
@@ -108,7 +108,7 @@ namespace ProyectoXamarin.ViewModels
                     return;
                 }
 
-                if (dbUser.Password != User.Password)
+                if (!User.RememberUser && dbUser.Password != User.Password)
                 {
                     await Application.Current.MainPage.DisplayAlert("Info", "Credenciales incorrectas.", "Ok");
                     return;
@@ -117,6 +117,7 @@ namespace ProyectoXamarin.ViewModels
                 if (User.RememberUser)
                 {
                     Preferences.Set("rememberUser", "S");
+                    Preferences.Set("rememberEmail", User.Email);
                 }
                 else { Preferences.Set("rememberUser", "N"); }
 
@@ -134,10 +135,11 @@ namespace ProyectoXamarin.ViewModels
             }
         }
 
-        async Task OnAuthenticate(string scheme)
+        private async Task OnAuthenticate(string scheme)
         {
             try
             {
+                IsBusy = true;
                 WebAuthenticatorResult r = null;
 
                 if (scheme.Equals("Apple")
@@ -155,7 +157,7 @@ namespace ProyectoXamarin.ViewModels
                 }
 
                 AuthToken = r?.AccessToken ?? r?.IdToken;
-                GetUserInfoUsingToken(AuthToken);
+                await GetUserInfoUsingToken(AuthToken);
             }
             catch (Exception ex)
             {
@@ -164,32 +166,54 @@ namespace ProyectoXamarin.ViewModels
             }
         }
 
-        private async void GetUserInfoUsingToken(string authToken)
+        private async Task GetUserInfoUsingToken(string authToken)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("https://www.googleapis.com/oauth2/v3/");
-            var httpResponseMessage = await httpClient.GetAsync("tokeninfo?access_token=" + authToken);
+            var httpResponseMessage = await httpClient.GetAsync("userinfo?access_token=" + authToken);
             using (var stream = await httpResponseMessage.Content.ReadAsStreamAsync())
             using (var reader = new StreamReader(stream))
             using (var json = new JsonTextReader(reader))
             {
                 var jsoncontent = _serializer.Deserialize<GoogleResponseModel>(json);
-                Preferences.Set("UserToken", authToken);
+
+                if (jsoncontent != null)
+                {
+                    var realm = Realm.GetInstance();
+
+                    User.Name = jsoncontent.given_name;
+                    User.Email = jsoncontent.email;
+                    User.Picture = jsoncontent.picture;
+                    User.RememberUser = true;
+
+                    var users = realm.All<UserModel>().Where(x => x.Email == jsoncontent.email).FirstOrDefault();
+
+                    if (users == null)
+                    {
+                        realm.Write(() =>
+                        {
+                            _ = realm.Add(User);
+                        });
+                    }
+
+                    //NavigationPage navigationPage = new NavigationPage(new HomeView());
+
+                    //Application.Current.MainPage = new MasterDetailPage
+                    //{
+                    //    Master = new MenuView(this),
+                    //    Detail = navigationPage
+                    //};
+
+                    LoginAsync();
+                    IsBusy = false;
+                }
+
+
+                //Preferences.Set("UserToken", authToken);
                 //Not  a best way to save auth token and check if authtoken has expired insted try implementing refresh token
                 //await Navigation.PushAsync(new MyDashboardPage(jsoncontent.email));
             }
 
         }
-
-        #region PropertyChangedImplementation
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (propertyName != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
     }
 }

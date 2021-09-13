@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using ProyectoXamarin.Views;
+using System;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ProyectoXamarin.ViewModels
 {
-    public class MenuViewModel : INotifyPropertyChanged
+    public class MenuViewModel : BaseViewModel
     {
         #region Command
 
@@ -15,16 +13,28 @@ namespace ProyectoXamarin.ViewModels
 
         #endregion Command
 
-        public MenuViewModel() 
+        [Obsolete]
+        public MenuViewModel()
         {
-            EnterMenuOptionCommand = new Command(EnterMenuOption);
+            EnterMenuOptionCommand = new Command<string>(EnterMenuOption);
         }
 
-        private void EnterMenuOption()
+        [Obsolete]
+        private async void EnterMenuOption(string opcionMenu)
         {
-            string d = "d";
+            switch (opcionMenu)
+            {
+                case "1":
+                    await((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new BankAccountView());
+                    ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                    break;
+                case "3":
+                    await ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new CategoryView());
+                    ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                    break;
+                default:
+                    break;
+            }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

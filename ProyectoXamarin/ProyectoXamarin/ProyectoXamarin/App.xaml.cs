@@ -1,21 +1,52 @@
-﻿using ProyectoXamarin.Views;
+﻿using ProyectoXamarin.Models;
+using ProyectoXamarin.ViewModels;
+using ProyectoXamarin.Views;
+using Realms;
 using System;
+using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace ProyectoXamarin
 {
     public partial class App : Application
     {
+        [Obsolete]
         public App()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            var rememberUser = Preferences.Get("rememberUser", "N");
+                string rememberUser = Preferences.Get("rememberUser", "N");
 
+                if (rememberUser == "S")
+                {
+                    string email = Preferences.Get("rememberEmail", null);
 
-            MainPage = new LoginView();
+                    Realm reaml = Realm.GetInstance();
+                    UserModel dbUser = reaml.All<UserModel>().Where(x => x.Email == email).FirstOrDefault();
+
+                    LoginViewModel loginViewModel = new LoginViewModel
+                    {
+                        User = dbUser
+                    };
+
+                    NavigationPage navigationPage = new NavigationPage(new HomeView());
+
+                    Current.MainPage = new MasterDetailPage
+                    {
+                        Master = new MenuView(loginViewModel),
+                        Detail = navigationPage
+                    };
+                }
+                else { MainPage = new LoginView(); }
+                //MainPage = new IconView();
+            }
+            catch (Exception ex)
+            {
+                Current.MainPage.DisplayAlert("Error", $"Login error: {ex.Message}", "Ok");
+            }
         }
 
         protected override void OnStart()

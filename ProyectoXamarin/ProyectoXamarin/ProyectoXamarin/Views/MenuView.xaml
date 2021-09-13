@@ -6,15 +6,33 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <StackLayout BackgroundColor="#2196f3" x:Name="stlUser">
-                <Label Text="{Binding User.Email}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+                <TableView Intent="Settings" HasUnevenRows="True">
+                    <TableRoot>
+                        <TableSection Title=" ">
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{Binding User.Picture}" Grid.Row="0" HeightRequest="120" />
+                                    <Label Text="{Binding User.Name}" Grid.Row="1" HorizontalOptions="Center"  />
+                                    <Label Text="{Binding User.Email}" Grid.Row="2" HorizontalOptions="Center" />
+                                </Grid>
+                            </ViewCell>
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
             </StackLayout>
             <StackLayout>
                 <TableView Intent="Menu" HasUnevenRows="True">
                     <TableRoot>
                         <TableSection Title="Opciones">
-                            <TextCell Text="Cuentas" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
+                            <TextCell Text="Cuentas" Detail="" Command="{Binding EnterMenuOptionCommand}" CommandParameter="1" />
                             <TextCell Text="Crear nuevo gasto" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
-                            <TextCell Text="Crear categoría" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
+                            <TextCell Text="Crear categoría" Detail="" Command="{Binding EnterMenuOptionCommand}" CommandParameter="3"/>
                             <TextCell Text="Gráfico de gastos" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
 
                             <TextCell Text="Cerrar sesión"  Command="{Binding EnterMenuOptionCommand}"/>

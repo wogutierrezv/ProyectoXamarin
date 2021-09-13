@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoXamarin.Views.BankAccountView"
+             x:Name="BankAccountPage"
+             Title="Cuentas">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nueva Cuenta" Command="{Binding EnterAccountDetailCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView x:Name="listaCuentas" ItemsSource="{Binding lstBankAccountModel}" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="15,0">
+                            <Grid>
+                                <Grid.RowDefinitions/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Name}" VerticalOptions="CenterAndExpand"/>
+                                <Label FontFamily="fontello" Text="&#xE800;" Grid.Column="1" VerticalOptions="CenterAndExpand" Margin="5" FontSize="Medium">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding Path=BindingContext.EnterAccountDetailCommand, Source={x:Reference BankAccountPage}}"
+                                            CommandParameter="{Binding Name}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label FontFamily="fontello" Text="&#xE801;" Grid.Column="2" VerticalOptions="CenterAndExpand" Margin="5" FontSize="Medium">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Path=BindingContext.EnterDeleteCommand, Source={x:Reference BankAccountPage}}"
+                                            CommandParameter="{Binding Name}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
