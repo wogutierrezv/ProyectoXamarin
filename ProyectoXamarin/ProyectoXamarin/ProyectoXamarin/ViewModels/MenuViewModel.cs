@@ -28,8 +28,16 @@ namespace ProyectoXamarin.ViewModels
                     await((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new BankAccountView());
                     ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                     break;
+                case "2":
+                    await ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new ExpenseView());
+                    ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                    break;
                 case "3":
                     await ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new CategoryView());
+                    ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                    break;
+                case "4":
+                    await ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new GraphicView());
                     ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                     break;
                 default:

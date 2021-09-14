@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoXamarin.Views.ExpenseView"
+             Title="Gasto">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White" Margin="15,10">
+            <StackLayout Orientation="Vertical">
+                <Label Text="Monto: "/>
+                <Entry Text="{Binding CurrentExpense.Monto}" Keyboard="Numeric"/>
+                <Label Text="Descripción: "/>
+                <Entry Text="{Binding CurrentExpense.Descripcion}"/>
+                <Label Text="Cuenta: "/>
+                <Picker Title="Seleccione una cuenta"
+                        FontSize="Default"
+                        ItemsSource="{Binding lstBankAccountModel}"
+                        SelectedItem="{Binding CurrentExpense.Cuenta}"
+                        ItemDisplayBinding="{Binding Name}"/>
+                <Label Text="Categoría: "/>
+                <Picker Title="Seleccione una categoría"
+                        FontSize="Default"
+                        ItemsSource="{Binding lstCategoryModel}"
+                        SelectedItem="{Binding CurrentExpense.Categoria}"
+                        ItemDisplayBinding="{Binding Name}"/>
+                <Label Text="Fecha: "/>
+                <DatePicker Date="{Binding CurrentExpense.Fecha}" FontSize="Default"/>
+                <Label Text="Prueba"/>
+                <Button Text="Crear gasto" Command="{Binding EnterRegisterCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

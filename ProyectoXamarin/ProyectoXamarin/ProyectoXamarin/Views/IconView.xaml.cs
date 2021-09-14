@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoXamarin.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,19 @@ namespace ProyectoXamarin.Views
         public IconView()
         {
             InitializeComponent();
+            BindingContext = CategoryViewModel.GetInstance();
+        }
+
+        async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+
+            if (label != null)
+            {
+
+            }
+
+            await Navigation.PopModalAsync(true);
         }
     }
 }

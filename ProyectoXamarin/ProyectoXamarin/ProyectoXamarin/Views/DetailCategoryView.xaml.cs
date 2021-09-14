@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoXamarin.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,7 @@ namespace ProyectoXamarin.Views
         public DetailCategoryView()
         {
             InitializeComponent();
-        }
-
-        async void btnIcono_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new IconView(), true);
+            BindingContext = CategoryViewModel.GetInstance();
         }
     }
 }

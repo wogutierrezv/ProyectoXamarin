@@ -11,9 +11,9 @@ using Xamarin.Forms.Xaml;
 namespace ProyectoXamarin.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomeView : ContentPage
+    public partial class ExpenseView : ContentPage
     {
-        public HomeView()
+        public ExpenseView()
         {
             InitializeComponent();
             BindingContext = HomeViewModel.GetInstance();

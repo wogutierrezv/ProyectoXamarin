@@ -21,14 +21,14 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Text="{Binding Name}" VerticalOptions="CenterAndExpand"/>
-                                <Label FontFamily="fontello" Text="&#xE800;" Grid.Column="1" VerticalOptions="CenterAndExpand" Margin="5" FontSize="Medium">
+                                <Label FontFamily="fontello2" Text="&#xE800;" Grid.Column="1" VerticalOptions="CenterAndExpand" Margin="5" FontSize="Medium">
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer 
                                             Command="{Binding Path=BindingContext.EnterAccountDetailCommand, Source={x:Reference BankAccountPage}}"
                                             CommandParameter="{Binding Name}"/>
                                     </Label.GestureRecognizers>
                                 </Label>
-                                <Label FontFamily="fontello" Text="&#xE801;" Grid.Column="2" VerticalOptions="CenterAndExpand" Margin="5" FontSize="Medium">
+                                <Label FontFamily="fontello2" Text="&#xE801;" Grid.Column="2" VerticalOptions="CenterAndExpand" Margin="5" FontSize="Medium">
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer
                                             Command="{Binding Path=BindingContext.EnterDeleteCommand, Source={x:Reference BankAccountPage}}"

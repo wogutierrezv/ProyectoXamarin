@@ -2,35 +2,243 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoXamarin.Views.IconView"
-             BackgroundColor="Transparent">
-    <StackLayout Padding="40,80,40,80" VerticalOptions="CenterAndExpand">
+             BackgroundColor="#C0808080">
+    <StackLayout Padding="40,80,40,80" VerticalOptions="CenterAndExpand" HeightRequest="350">
         <StackLayout BackgroundColor="White">
             <ScrollView>
                 <FlexLayout x:Name="flexLayout"
                             Wrap="Wrap"
                             JustifyContent="SpaceAround">
 
-                    <Label FontFamily="fontello1" Text="&#xE802;" FontSize="40" Margin="5" />
-                    <Label FontFamily="fontello1" Text="&#xE803;" FontSize="40" Margin="5" />
-                    <Label FontFamily="fontello1" Text="&#xE804;" FontSize="40" Margin="5" />
-                    <Label FontFamily="fontello1" Text="&#xE805;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE806;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE807;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE808;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE809;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE801;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE801;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE801;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE801;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE801;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE801;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE801;" FontSize="40" Margin="5"/>
-                    <Label FontFamily="fontello1" Text="&#xE801;" FontSize="40" Margin="5"/>
+                    <Label x:Name="lblIcon" FontFamily="fontello2" Text="&#xE802;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE802;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE803;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE803;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE804;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE804;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE805;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE805;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE806;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE806;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE807;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE807;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE808;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE808;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE809;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE809;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE80A;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE80A;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE80B;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE80B;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE80C;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE80C;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE80D;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE80D;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE80E;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE80E;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE80F;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE80F;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE810;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE810;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
 
+                    <Label FontFamily="fontello2" Text="&#xE811;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE811;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE812;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE812;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE813;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE813;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE814;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE814;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE815;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE815;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE816;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE816;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE817;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE817;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE818;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE818;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE819;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE819;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
 
+                    <Label FontFamily="fontello2" Text="&#xE822;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE822;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE823;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE823;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE824;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE824;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE825;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE825;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE826;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE826;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE827;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE827;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE828;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE828;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE829;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE829;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
 
+                    <Label FontFamily="fontello2" Text="&#xE833;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE833;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE834;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE834;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE835;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE835;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE836;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE836;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE837;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE837;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE838;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE838;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE839;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE839;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
 
-
+                    <Label FontFamily="fontello2" Text="&#xE844;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE844;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE845;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE845;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE846;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE846;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE847;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE847;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE848;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE848;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label FontFamily="fontello2" Text="&#xE849;" FontSize="35" Margin="5">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectedIconCommand}" CommandParameter="&#xE849;"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </FlexLayout>
             </ScrollView>
         </StackLayout>

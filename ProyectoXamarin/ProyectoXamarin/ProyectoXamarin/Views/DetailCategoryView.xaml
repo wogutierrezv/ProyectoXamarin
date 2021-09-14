@@ -1,10 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProyectoXamarin.Views.DetailCategoryView">
+             x:Class="ProyectoXamarin.Views.DetailCategoryView"
+             Title="Categoría">
     <ContentPage.Content>
         <StackLayout>
-            <Button x:Name="btnIcono" Text="Icono" Clicked="btnIcono_Clicked"/>
+            <StackLayout>
+                <Entry Text="{Binding CurrentCategory.Name}" Placeholder="Descripción" Margin="15,10" VerticalOptions="Start"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Icono: " Margin="15,10" VerticalOptions="Center"/>
+                <Label FontFamily="fontello2" Text="{Binding CurrentCategory.Icon}" FontSize="35" Margin="5" HorizontalOptions="FillAndExpand">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EnterIconCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+            <StackLayout>
+                <Button Text="Ok" Margin="15,10" Command="{Binding EnterRegisterCommand}"></Button>
+            </StackLayout>
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

@@ -31,9 +31,9 @@
                     <TableRoot>
                         <TableSection Title="Opciones">
                             <TextCell Text="Cuentas" Detail="" Command="{Binding EnterMenuOptionCommand}" CommandParameter="1" />
-                            <TextCell Text="Crear nuevo gasto" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
-                            <TextCell Text="Crear categoría" Detail="" Command="{Binding EnterMenuOptionCommand}" CommandParameter="3"/>
-                            <TextCell Text="Gráfico de gastos" Detail="" Command="{Binding EnterMenuOptionCommand}"/>
+                            <TextCell Text="Crear nuevo gasto" Detail="" Command="{Binding EnterMenuOptionCommand}" CommandParameter="2"/>
+                            <TextCell Text="Categorías" Detail="" Command="{Binding EnterMenuOptionCommand}" CommandParameter="3"/>
+                            <TextCell Text="Gráfico de gastos" Detail="" Command="{Binding EnterMenuOptionCommand}" CommandParameter="4"/>
 
                             <TextCell Text="Cerrar sesión"  Command="{Binding EnterMenuOptionCommand}"/>
                         </TableSection>

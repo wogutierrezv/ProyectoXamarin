@@ -45,7 +45,7 @@ namespace ProyectoXamarin
             }
             catch (Exception ex)
             {
-                Current.MainPage.DisplayAlert("Error", $"Login error: {ex.Message}", "Ok");
+                //Current.MainPage.DisplayAlert("Error", $"Login error: {ex.Message}", "Ok");
             }
         }
 

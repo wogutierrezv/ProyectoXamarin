@@ -13,14 +13,16 @@
   <ItemGroup>
     <None Remove="Fonts\fontello.ttf" />
     <None Remove="Fonts\fontello1.ttf" />
+    <None Remove="Fonts\fontello2.ttf" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Fonts\fontello.ttf" />
-    <EmbeddedResource Include="Fonts\fontello1.ttf" />
+    <EmbeddedResource Include="Fonts\fontello2.ttf" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microcharts" Version="0.9.5.9" />
+    <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Realm" Version="10.4.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
@@ -38,6 +40,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\DetailCategoryView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GraphicView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\HomeView.xaml">

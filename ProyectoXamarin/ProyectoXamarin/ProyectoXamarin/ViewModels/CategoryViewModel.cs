@@ -1,5 +1,6 @@
 ﻿using ProyectoXamarin.Models;
 using ProyectoXamarin.Views;
+using Realms;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,6 +52,8 @@ namespace ProyectoXamarin.ViewModels
         public ICommand EnterCategoryDetailCommand { get; set; }
         public ICommand EnterRegisterCommand { get; set; }
         public ICommand EnterDeleteCommand { get; set; }
+        public ICommand EnterIconCommand { get; set; }
+        public ICommand SelectedIconCommand { get; set; }
 
         #endregion Command
 
@@ -84,20 +87,78 @@ namespace ProyectoXamarin.ViewModels
             EnterCategoryDetailCommand = new Command<string>(EnterDetailCommand);
             EnterRegisterCommand = new Command(EnterRegister);
             EnterDeleteCommand = new Command<string>(EnterDelete);
+            EnterIconCommand = new Command(EnterIcon);
+            SelectedIconCommand = new Command<string>(SelectedIcon);
         }
 
-        private void EnterDelete(string obj)
+        private void SelectedIcon(string obj)
         {
-            throw new NotImplementedException();
+            Realm realm = Realm.GetInstance();
+
+            CurrentCategory.Icon = obj;
+
+            //using (var trans = realm.BeginWrite())
+            //{
+            //    trans.Commit();
+            //}
+
+            ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PopModalAsync(true);
+        }
+
+        private void EnterIcon()
+        {
+            ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushModalAsync(new IconView(), true);
+        }
+
+        private async void EnterDelete(string obj)
+        {
+            bool answer = await Application.Current.MainPage.DisplayAlert("Confirmar eliminación", "Desea eliminar el registro?", "Sí", "No");
+
+            if (answer)
+            {
+                Realm realm = Realm.GetInstance();
+                var account = CategoryModel.GetCategory(obj).Result;
+                using (var trans = realm.BeginWrite())
+                {
+                    realm.Remove(account);
+                    trans.Commit();
+                }
+
+                InitClass();
+            }
         }
 
         private void EnterRegister(object obj)
         {
-            throw new NotImplementedException();
+            Realm realm = Realm.GetInstance();
+
+            if (isNew)
+            {
+                realm.Write(() =>
+                {
+                    realm.Add(CurrentCategory);
+                });
+            }
+            else
+            {
+                using (var trans = realm.BeginWrite())
+                {
+                    trans.Commit();
+                }
+            }
+
+            ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PopAsync();
         }
 
         private void EnterDetailCommand(string obj)
         {
+            if (!string.IsNullOrEmpty(obj))
+            {
+                CurrentCategory = CategoryModel.GetCategory(obj).Result;
+                isNew = false;
+            }
+            else { CurrentCategory = new CategoryModel() { Icon = "" }; isNew = true; }
+
             ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new DetailCategoryView());
         }
     }

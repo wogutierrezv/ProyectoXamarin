@@ -10,6 +10,7 @@ namespace ProyectoXamarin.Models
     public class CategoryModel : RealmObject
     {
         public string Name { get; set; }
+        public string Icon { get; set; }
 
         public async static Task<IEnumerable<CategoryModel>> GetAllCategory()
         {
@@ -17,9 +18,9 @@ namespace ProyectoXamarin.Models
             {
                 Realm realm = Realm.GetInstance();
 
-                System.Linq.IQueryable<CategoryModel> accounts = realm.All<CategoryModel>();
+                System.Linq.IQueryable<CategoryModel> categorys = realm.All<CategoryModel>();
 
-                return accounts;
+                return categorys;
             }
             catch (Exception ex)
             {
@@ -33,9 +34,9 @@ namespace ProyectoXamarin.Models
             {
                 Realm realm = Realm.GetInstance();
 
-                CategoryModel account = realm.All<CategoryModel>().Where(x => x.Name == name).FirstOrDefault();
+                CategoryModel category = realm.All<CategoryModel>().Where(x => x.Name == name).FirstOrDefault();
 
-                return account;
+                return category;
             }
             catch (Exception ex)
             {
