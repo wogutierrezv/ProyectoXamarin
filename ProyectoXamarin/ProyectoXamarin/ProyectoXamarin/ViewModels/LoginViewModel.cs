@@ -49,10 +49,6 @@ namespace ProyectoXamarin.ViewModels
 
         #endregion Command
 
-        string accessToken = string.Empty;
-
-        public string AuthToken { get; set; }
-
         public LoginViewModel()
         {
             LoginCommand = new Command(LoginAsync);
@@ -135,7 +131,7 @@ namespace ProyectoXamarin.ViewModels
             }
         }
 
-        private async Task OnAuthenticate(string scheme)
+        public async Task OnAuthenticate(string scheme)
         {
             try
             {
@@ -156,17 +152,26 @@ namespace ProyectoXamarin.ViewModels
                     r = await WebAuthenticator.AuthenticateAsync(authUrl, callbackUrl);
                 }
 
-                AuthToken = r?.AccessToken ?? r?.IdToken;
-                await GetUserInfoUsingToken(AuthToken);
+                string accessToken = r?.AccessToken ?? r?.IdToken;
+
+                await GetUserInfoUsingToken(accessToken);
+
+                NavigationPage navigationPage = new NavigationPage(new HomeView());
+
+                Application.Current.MainPage = new MasterDetailPage
+                {
+                    Master = new MenuView(this),
+                    Detail = navigationPage
+                };
             }
             catch (Exception ex)
             {
-                AuthToken = string.Empty;
+                IsBusy = false;
                 await App.Current.MainPage.DisplayAlert("Alert", ex.Message, "Ok");
             }
         }
 
-        private async Task GetUserInfoUsingToken(string authToken)
+        public async Task GetUserInfoUsingToken(string authToken)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("https://www.googleapis.com/oauth2/v3/");
@@ -179,41 +184,14 @@ namespace ProyectoXamarin.ViewModels
 
                 if (jsoncontent != null)
                 {
-                    var realm = Realm.GetInstance();
-
                     User.Name = jsoncontent.given_name;
                     User.Email = jsoncontent.email;
                     User.Picture = jsoncontent.picture;
-                    User.RememberUser = true;
 
-                    var users = realm.All<UserModel>().Where(x => x.Email == jsoncontent.email).FirstOrDefault();
-
-                    if (users == null)
-                    {
-                        realm.Write(() =>
-                        {
-                            _ = realm.Add(User);
-                        });
-                    }
-
-                    //NavigationPage navigationPage = new NavigationPage(new HomeView());
-
-                    //Application.Current.MainPage = new MasterDetailPage
-                    //{
-                    //    Master = new MenuView(this),
-                    //    Detail = navigationPage
-                    //};
-
-                    LoginAsync();
-                    IsBusy = false;
+                    Preferences.Set("loginWithGoogle", "S");
+                    Preferences.Set("UserToken", authToken);
                 }
-
-
-                //Preferences.Set("UserToken", authToken);
-                //Not  a best way to save auth token and check if authtoken has expired insted try implementing refresh token
-                //await Navigation.PushAsync(new MyDashboardPage(jsoncontent.email));
             }
-
         }
     }
 }

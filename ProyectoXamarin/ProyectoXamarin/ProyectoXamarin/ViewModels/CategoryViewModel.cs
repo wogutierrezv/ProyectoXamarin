@@ -128,26 +128,39 @@ namespace ProyectoXamarin.ViewModels
             }
         }
 
-        private void EnterRegister(object obj)
+        async void EnterRegister(object obj)
         {
-            Realm realm = Realm.GetInstance();
-
-            if (isNew)
+            try
             {
-                realm.Write(() =>
+                if (string.IsNullOrEmpty(CurrentCategory.Name))
                 {
-                    realm.Add(CurrentCategory);
-                });
-            }
-            else
-            {
-                using (var trans = realm.BeginWrite())
-                {
-                    trans.Commit();
+                    await Application.Current.MainPage.DisplayAlert("Error", "Debe ingresar un nombre para la categoría", "Ok");
+                    return;
                 }
-            }
 
-            ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PopAsync();
+                Realm realm = Realm.GetInstance();
+
+                if (isNew)
+                {
+                    realm.Write(() =>
+                    {
+                        realm.Add(CurrentCategory);
+                    });
+                }
+                else
+                {
+                    using (var trans = realm.BeginWrite())
+                    {
+                        trans.Commit();
+                    }
+                }
+
+                ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
+            }
         }
 
         private void EnterDetailCommand(string obj)

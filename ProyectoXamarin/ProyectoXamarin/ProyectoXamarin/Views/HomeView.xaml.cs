@@ -18,5 +18,18 @@ namespace ProyectoXamarin.Views
             InitializeComponent();
             BindingContext = HomeViewModel.GetInstance();
         }
+
+        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var normalizedQuery = e.NewTextValue?.ToLower() ?? "";
+
+            if (string.IsNullOrEmpty(normalizedQuery))
+            {
+                listExpenses.ItemsSource = HomeViewModel.GetInstance().lstExpenseModel;
+                return;
+            }
+
+            listExpenses.ItemsSource = HomeViewModel.GetInstance().lstExpenseModel.Where(f => f.Descripcion.ToLowerInvariant().Contains(normalizedQuery)).ToList();
+        }
     }
 }

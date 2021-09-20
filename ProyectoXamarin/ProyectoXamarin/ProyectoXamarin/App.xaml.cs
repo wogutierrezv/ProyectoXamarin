@@ -19,28 +19,50 @@ namespace ProyectoXamarin
                 InitializeComponent();
 
                 string rememberUser = Preferences.Get("rememberUser", "N");
+                string loginWithGoogle = Preferences.Get("loginWithGoogle", "N");
 
-                if (rememberUser == "S")
+                if (loginWithGoogle == "S")
                 {
-                    string email = Preferences.Get("rememberEmail", null);
+                    string userToken = Preferences.Get("UserToken", null);
 
-                    Realm reaml = Realm.GetInstance();
-                    UserModel dbUser = reaml.All<UserModel>().Where(x => x.Email == email).FirstOrDefault();
-
-                    LoginViewModel loginViewModel = new LoginViewModel
-                    {
-                        User = dbUser
-                    };
+                    LoginViewModel loginViewModel = new LoginViewModel();
+                    loginViewModel.GetUserInfoUsingToken(userToken).ConfigureAwait(false);
 
                     NavigationPage navigationPage = new NavigationPage(new HomeView());
 
-                    Current.MainPage = new MasterDetailPage
+                    MainPage = new MasterDetailPage
                     {
                         Master = new MenuView(loginViewModel),
                         Detail = navigationPage
                     };
                 }
-                else { MainPage = new LoginView(); }
+                else 
+                {
+                    if (rememberUser == "S")
+                    {
+                        string email = Preferences.Get("rememberEmail", null);
+
+                        Realm reaml = Realm.GetInstance();
+                        UserModel dbUser = reaml.All<UserModel>().Where(x => x.Email == email).FirstOrDefault();
+
+                        LoginViewModel loginViewModel = new LoginViewModel
+                        {
+                            User = dbUser
+                        };
+
+                        NavigationPage navigationPage = new NavigationPage(new HomeView());
+
+                        MainPage = new MasterDetailPage
+                        {
+                            Master = new MenuView(loginViewModel),
+                            Detail = navigationPage
+                        };
+                    }
+                    else { MainPage = new LoginView(); }
+                }
+
+
+
                 //MainPage = new IconView();
             }
             catch (Exception ex)

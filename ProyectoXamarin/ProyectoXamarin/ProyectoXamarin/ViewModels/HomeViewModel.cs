@@ -1,10 +1,14 @@
 ﻿using ProyectoXamarin.Models;
+using ProyectoXamarin.Views;
 using Realms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ProyectoXamarin.ViewModels
@@ -50,6 +54,11 @@ namespace ProyectoXamarin.ViewModels
         #region Command
 
         public ICommand EnterRegisterCommand { get; set; }
+        public ICommand EnterFilePickerCommand { get; set; }
+        public ICommand EnterNewExpenseCommand { get; set; }
+        public ICommand EnterDeleteCommand { get; set; }
+        public ICommand PerformSearchCommand { get; set; }
+        public ICommand EnterExpenseDetailCommand { get; set; }
 
         #endregion Command
 
@@ -76,27 +85,124 @@ namespace ProyectoXamarin.ViewModels
         public async void InitClass()
         {
             lstExpenseModel = ExpenseModel.GetAllExpense().Result.ToList();
-            lstBankAccountModel = BankAccountModel.GetAllAccount().Result.ToList();
-            lstCategoryModel = CategoryModel.GetAllCategory().Result.ToList();
         }
 
         public void InitCommand()
         {
             EnterRegisterCommand = new Command(EnterRegister);
+            EnterFilePickerCommand = new Command(EnterFilePicker);
+            EnterNewExpenseCommand = new Command(EnterNewExpense);
+            EnterDeleteCommand = new Command<ExpenseModel>(EnterDeleteExpense);
+            PerformSearchCommand = new Command<string>(PerformSearch);
+            EnterExpenseDetailCommand = new Command<ExpenseModel>(EnterExpenseDetail);
         }
 
-        private void EnterRegister()
+        private void EnterExpenseDetail(ExpenseModel expenseModel)
         {
-            Realm realm = Realm.GetInstance();
+            CurrentExpense = expenseModel;
+            ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new DetailExpenseView());
+        }
 
-            realm.Write(() =>
+        private void PerformSearch(string search)
+        {
+            try
             {
-                realm.Add(CurrentExpense);
-            });
+                var normalizedQuery = search?.ToLower() ?? "";
 
-            lstExpenseModel = ExpenseModel.GetAllExpense().Result.ToList();
+                lstExpenseModel = ExpenseModel.GetAllExpense().Result.Where(f => f.Descripcion.ToLowerInvariant().Contains(normalizedQuery)).ToList();
 
-            ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PopAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private async void EnterDeleteExpense(ExpenseModel expenseModel)
+        {
+            bool answer = await Application.Current.MainPage.DisplayAlert("Confirmar eliminación", "Desea eliminar el registro?", "Sí", "No");
+
+            if (answer)
+            {
+                Realm realm = Realm.GetInstance();
+                //var account = CategoryModel.GetCategory(obj).Result;
+                using (var trans = realm.BeginWrite())
+                {
+                    realm.Remove(expenseModel);
+                    trans.Commit();
+                }
+
+                InitClass();
+            }
+        }
+
+        public async void InitMaintenance() 
+        {
+            lstBankAccountModel = BankAccountModel.GetAllAccount().Result.ToList();
+            lstCategoryModel = CategoryModel.GetAllCategory().Result.ToList();
+        }
+
+        private void EnterNewExpense()
+        {
+            InitMaintenance();
+            CurrentExpense = new ExpenseModel() { Fecha = DateTime.Today.Date.ToString() };
+            ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new ExpenseView());
+        }
+
+        private async void EnterFilePicker(object obj)
+        {
+            var result = await FilePicker.PickAsync();
+
+            if (result != null)
+            {
+                CurrentExpense.Adjunto = result.FullPath;
+            }
+        }
+
+        private async void EnterRegister()
+        {
+            try
+            {
+                if (CurrentExpense.Monto <= decimal.Zero)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "El monto ingresado debe ser mayor a 0", "Ok");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(CurrentExpense.Descripcion))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Debe ingresar una descripción para el gasto", "Ok");
+                    return;
+                }
+
+                if (CurrentExpense.Cuenta == null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Debe ingresar una cuenta para el gasto", "Ok");
+                    return;
+                }
+
+                if (CurrentExpense.Categoria == null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Debe ingresar una categoría para el gasto", "Ok");
+                    return;
+                }
+
+                Realm realm = Realm.GetInstance();
+
+                realm.Write(() =>
+                {
+                    realm.Add(CurrentExpense);
+                });
+
+                lstExpenseModel = ExpenseModel.GetAllExpense().Result.ToList();
+
+                ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
+            }
         }
     }
 }

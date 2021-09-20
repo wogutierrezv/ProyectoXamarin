@@ -13,6 +13,7 @@ namespace ProyectoXamarin.Models
         public BankAccountModel Cuenta { get; set; }
         public CategoryModel Categoria { get; set; }
         public string Fecha { get; set; }
+        public string Adjunto { get; set; }
 
         public async static Task<IEnumerable<ExpenseModel>> GetAllExpense()
         {

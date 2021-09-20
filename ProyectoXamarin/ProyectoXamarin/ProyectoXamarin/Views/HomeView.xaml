@@ -2,21 +2,58 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProyectoXamarin.Views.HomeView"
+             x:Name="ExpensePage"
              Title="Últimos gastos">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nuevo gasto" Command="{Binding EnterNewExpenseCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar Placeholder="Buscar..." FontSize="Default"/>
-            <ListView ItemsSource="{Binding lstExpenseModel}" SelectionMode="None" Margin="25,0" HasUnevenRows="True">
+            <SearchBar 
+                 x:Name="searchBar"
+                        Placeholder="Buscar..." 
+                       FontSize="Medium"
+                       CancelButtonColor="Orange"
+                       PlaceholderColor="Orange"
+                       TextTransform="Lowercase"
+                       HorizontalTextAlignment="Center"
+                       TextChanged="searchBar_TextChanged"/>
+            <Label Margin="25,0" Text="Ingrese un término de búsqueda y presione enter o haga clic en la lupa para realizar una búsqueda.."
+               HorizontalOptions="Fill"
+               VerticalOptions="CenterAndExpand" />
+            <ListView 
+                x:Name="listExpenses"
+                ItemsSource="{Binding lstExpenseModel}" 
+                SelectionMode="None" 
+                Margin="25,0" 
+                HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Ver detalle"
+                                          Command="{Binding Path=BindingContext.EnterExpenseDetailCommand, Source={x:Reference ExpensePage}}"
+                                          CommandParameter="{Binding .}"/>
+                                <MenuItem Text="Eliminar" 
+                                          Command="{Binding Path=BindingContext.EnterDeleteCommand, Source={x:Reference ExpensePage}}"
+                                          CommandParameter="{Binding .}"
+                                          IsDestructive="True"/>
+                            </ViewCell.ContextActions>
                             <StackLayout Padding="0,5" Orientation="Horizontal">
-                                <Label FontFamily="fontello2" Text="{Binding Categoria.Icon}" FontSize="35" VerticalOptions="Center" Margin="0,0,15,0"/>
+                                <Label FontFamily="fontello2" 
+                                       Text="{Binding Categoria.Icon}" 
+                                       FontSize="35" 
+                                       VerticalOptions="Center" 
+                                       Margin="0,0,15,0"/>
                                 <StackLayout VerticalOptions="Center" Spacing="0">
                                     <Label Text="{Binding Descripcion}" />
                                     <Label Text="{Binding Cuenta.Name}" Margin="15,0,0,0"/>
                                 </StackLayout>
-                                <Label Text="{Binding Monto, StringFormat='₡ {0:0.00}'}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" TextColor="Red" FontSize="20"/>
+                                <Label Text="{Binding Monto, StringFormat='₡ {0:0.00}'}" 
+                                       HorizontalOptions="EndAndExpand" 
+                                       VerticalOptions="Center" 
+                                       TextColor="Red" 
+                                       FontSize="20"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -1,6 +1,7 @@
 ﻿using ProyectoXamarin.Views;
 using System;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ProyectoXamarin.ViewModels
@@ -39,6 +40,14 @@ namespace ProyectoXamarin.ViewModels
                 case "4":
                     await ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PushAsync(new GraphicView());
                     ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                    break;
+                case "5":
+                    Preferences.Remove("rememberUser");
+                    Preferences.Remove("rememberEmail");
+                    Preferences.Remove("loginWithGoogle");
+                    Preferences.Remove("UserToken");
+
+                    Application.Current.MainPage = new LoginView();
                     break;
                 default:
                     break;

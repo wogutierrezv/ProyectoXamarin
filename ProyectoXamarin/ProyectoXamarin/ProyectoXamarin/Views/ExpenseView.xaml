@@ -24,7 +24,16 @@
                         ItemDisplayBinding="{Binding Name}"/>
                 <Label Text="Fecha: "/>
                 <DatePicker Date="{Binding CurrentExpense.Fecha}" FontSize="Default"/>
-                <Label Text="Prueba"/>
+                <Image 
+                       Source="{Binding  CurrentExpense.Adjunto}"
+                       BackgroundColor="Gray" 
+                       WidthRequest="10"
+                       HeightRequest="100">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EnterFilePickerCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
                 <Button Text="Crear gasto" Command="{Binding EnterRegisterCommand}"/>
             </StackLayout>
         </StackLayout>

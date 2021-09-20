@@ -4,12 +4,23 @@
              x:Class="ProyectoXamarin.Views.LoginView" BackgroundColor="Transparent" NavigationPage.HasBackButton="False">
     <ContentPage.Content>
         <AbsoluteLayout Margin="5,0">
-            <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.5,110,50" AbsoluteLayout.LayoutFlags="PositionProportional" IsVisible="{Binding IsBusy}">
-                <Grid Opacity=".8" BackgroundColor="Black">
-                    <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
-                </Grid>
-            </StackLayout>
-            <FlexLayout IsVisible="True" JustifyContent="SpaceEvenly" Direction="Column" AlignItems="Center" Margin="30,0,30,0">
+
+            <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5,0.5,50,50" 
+                               AbsoluteLayout.LayoutFlags="XProportional,YProportional" 
+                               IsRunning="{Binding IsBusy}"
+                               Color="Black"/>
+            <!--<StackLayout Margin="0" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="HeightProportional,WidthProportional" IsVisible="True" BackgroundColor="Gray">
+
+                    <ActivityIndicator IsRunning="True"></ActivityIndicator>
+      
+            </StackLayout>-->
+
+            <FlexLayout IsVisible="True" 
+                        JustifyContent="SpaceEvenly" 
+                        Direction="Column" 
+                        Margin="30,0,30,0" 
+                        AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                        AbsoluteLayout.LayoutFlags="HeightProportional,WidthProportional">
                 <Image Source="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png" HeightRequest="140" WidthRequest="140" FlexLayout.AlignSelf="Center" BackgroundColor="Transparent"/>
                 <Label TextColor="Black" FontAttributes="Bold" Text="LOGIN" FlexLayout.AlignSelf="Center" BackgroundColor="Transparent"/>
                 <Entry x:Name="txtCorreo" Placeholder="Correo" FontSize="Medium" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" TextColor="Black" Keyboard="Text" Text="{Binding User.Email}"/>
@@ -38,11 +49,8 @@
                 </StackLayout>
                 <Button TextColor="White" BorderColor="Black" BackgroundColor="#00b33c" CornerRadius="5" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" Text="Ingresar" Command="{Binding LoginCommand}"/>
                 <Button TextColor="White" Text="REGISTRARSE" BackgroundColor="Blue" CornerRadius="5" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" Command="{Binding EnterRegisterCommand}" />
-                <Button HorizontalOptions="CenterAndExpand" Text="Sign in with Google" CornerRadius="5" Command="{Binding GoogleCommand}" BackgroundColor="#d34836" TextColor="White" FlexLayout.AlignSelf="Stretch" />
+                <Button HorizontalOptions="CenterAndExpand" Text="Ingresar con Google" CornerRadius="5" Command="{Binding GoogleCommand}" BackgroundColor="#d34836" TextColor="White" FlexLayout.AlignSelf="Stretch" />
             </FlexLayout>
-
-
-
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

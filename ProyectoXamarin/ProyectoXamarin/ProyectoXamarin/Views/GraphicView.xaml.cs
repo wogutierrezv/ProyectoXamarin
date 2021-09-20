@@ -27,7 +27,7 @@ namespace ProyectoXamarin.Views
             {
                 Entries = entryList,
                 LabelTextSize = 45,
-                AnimationDuration = new TimeSpan(6000)
+                AnimationDuration = new TimeSpan(16000)
             };
         }
 
