@@ -46,6 +46,7 @@ namespace ProyectoXamarin.ViewModels
         public ICommand LoginCommand { get; set; }
         public ICommand EnterRegisterCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
+        public ICommand ExitRegisterCommand { get; set; }
 
         #endregion Command
 
@@ -55,12 +56,36 @@ namespace ProyectoXamarin.ViewModels
             GoogleCommand = new Command(async () => await OnAuthenticate("Google"));
             EnterRegisterCommand = new Command(EnterRegister);
             RegisterCommand = new Command(Register);
+            ExitRegisterCommand = new Command(ExitRegister);
+        }
+
+        private async void ExitRegister(object obj)
+        {
+            App.Current.MainPage = new LoginView();
         }
 
         public async void Register(object obj)
         {
             try
             {
+                if (string.IsNullOrEmpty(User.Name))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Debe ingresar un nombre para el usuario", "Ok");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(User.Email))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Debe ingresar un correo para el usuario", "Ok");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(User.Password))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Debe ingresar una contraseña para el usuario", "Ok");
+                    return;
+                }
+
                 var realm = Realm.GetInstance();
 
                 var users = realm.All<UserModel>().Where(x => x.Email == User.Email).FirstOrDefault();

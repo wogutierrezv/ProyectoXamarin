@@ -97,11 +97,6 @@ namespace ProyectoXamarin.ViewModels
 
             CurrentCategory.Icon = obj;
 
-            //using (var trans = realm.BeginWrite())
-            //{
-            //    trans.Commit();
-            //}
-
             ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PopModalAsync(true);
         }
 

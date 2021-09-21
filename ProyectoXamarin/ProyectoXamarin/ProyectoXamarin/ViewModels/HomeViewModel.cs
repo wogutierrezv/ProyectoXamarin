@@ -84,7 +84,8 @@ namespace ProyectoXamarin.ViewModels
 
         public async void InitClass()
         {
-            lstExpenseModel = ExpenseModel.GetAllExpense().Result.ToList();
+            lstExpenseModel = ExpenseModel.GetAllExpense().Result
+                .OrderByDescending(x => DateTime.Parse(x.Fecha)).ToList();
         }
 
         public void InitCommand()
@@ -126,7 +127,6 @@ namespace ProyectoXamarin.ViewModels
             if (answer)
             {
                 Realm realm = Realm.GetInstance();
-                //var account = CategoryModel.GetCategory(obj).Result;
                 using (var trans = realm.BeginWrite())
                 {
                     realm.Remove(expenseModel);
@@ -152,11 +152,23 @@ namespace ProyectoXamarin.ViewModels
 
         private async void EnterFilePicker(object obj)
         {
-            var result = await FilePicker.PickAsync();
-
-            if (result != null)
+            try
             {
-                CurrentExpense.Adjunto = result.FullPath;
+                var result = await FilePicker.PickAsync(
+                new PickOptions()
+                {
+                    FileTypes = FilePickerFileType.Images,
+                    PickerTitle = "Seleccione una imagen"
+                });
+
+                if (result != null)
+                {
+                    CurrentExpense.Adjunto = result.FullPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
             }
         }
 
@@ -195,7 +207,7 @@ namespace ProyectoXamarin.ViewModels
                     realm.Add(CurrentExpense);
                 });
 
-                lstExpenseModel = ExpenseModel.GetAllExpense().Result.ToList();
+                InitClass();
 
                 ((MasterDetailPage)Application.Current.MainPage).Detail.Navigation.PopAsync();
             }

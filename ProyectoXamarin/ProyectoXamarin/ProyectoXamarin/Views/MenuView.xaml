@@ -27,7 +27,7 @@
                             <TextCell TextColor="Black" Text="Categorías" Command="{Binding EnterMenuOptionCommand}" CommandParameter="3"/>
                             <TextCell TextColor="Black" Text="Gráfico de gastos" Command="{Binding EnterMenuOptionCommand}" CommandParameter="4"/>
 
-                            <TextCell Text="Cerrar sesión" Command="{Binding EnterMenuOptionCommand}" CommandParameter="5"/>
+                            <TextCell TextColor="Red" Text="Cerrar sesión" Command="{Binding EnterMenuOptionCommand}" CommandParameter="5"/>
                         </TableSection>
                     </TableRoot>
                 </TableView>

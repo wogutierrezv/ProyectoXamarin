@@ -12,7 +12,12 @@
                 <Entry x:Name="txtEmail" Placeholder="Correo" Keyboard="Email" FontSize="Medium" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" TextColor="Black" Text="{Binding User.Email}"/>
                 <Entry x:Name="txtPassword" Placeholder="Contraseña" IsPassword="True" FontSize="Medium" FlexLayout.AlignSelf="Stretch" HorizontalOptions="CenterAndExpand" TextColor="Black" Text="{Binding User.Password}"/>
                 <Button x:Name="signUp" TextColor="White" BorderColor="Black" BackgroundColor="#00b33c"  CornerRadius="5" FlexLayout.AlignSelf="Stretch"  HorizontalOptions="CenterAndExpand" Text="REGISTRARSE" Command="{Binding RegisterCommand}"/>
-                <Button TextColor="Black" BackgroundColor="Transparent" Text="Login" FontSize="13" FlexLayout.AlignSelf="Start" />
+                <Button TextColor="Black" 
+                        BackgroundColor="Transparent" 
+                        Text="Volver a Login" 
+                        FontSize="13" 
+                        FlexLayout.AlignSelf="Start" 
+                        Command="{Binding ExitRegisterCommand}" />
             </FlexLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
